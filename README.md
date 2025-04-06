@@ -8,8 +8,7 @@
 ![image](https://github.com/user-attachments/assets/368be5f7-2c95-4b32-898a-c0bd062bd480)
 
 # Note 📒 
-![image](https://github.com/user-attachments/assets/83053a4d-fe69-4570-81ec-de89ba151ff9)
-**change your webhook**
+![image](https://github.com/user-attachments/assets/769c4d67-6a11-4d1b-845e-6d531fbb2e77)
 
 # HOW TO USE ❓
 ```
