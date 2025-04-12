@@ -1,15 +1,11 @@
 # Author : cybermad
 
 import os
-import sys
 import os
 import shutil
 from PIL import Image
 from io import BytesIO
 from pystyle import Colorate, Colors
-
-red = "\033[31m"
-clear = "\033[0m"
 
 def darkarmy():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -19,9 +15,12 @@ def darkarmy():
  / // / __ |/ , _/ ,< /___/_  _/ , _/ /|_/ /  \  / 
 /____/_/ |_/_/|_/_/|_|     /_//_/|_/_/  /_/   /_/  
                               
-            [VERSION] V1
-            [CREATED] github.com/madanokr001
-            [REVOLT!] rvlt.gg/HVhg0t9x 
+            [VERSION] V2
+            [PATCHED] + IPLOGGER + BUGFIX
+                              
+            [GITHUB] github.com/madanokr001        
+            [AUTHOR] cybermad
+            [REVOLT] rvlt.gg/HVhg0t9x 
           """))
 
 def convert(image_path):
@@ -61,7 +60,7 @@ def build():
     if os.path.exists(icon_path):
         os.remove(icon_path)
 
-    print(Colorate.Horizontal(Colors.black_to_white,"Done."))
+    print(Colorate.Horizontal(Colors.blue_to_cyan,"Done."))
     input()
 
 if __name__ == "__main__":
