@@ -4,7 +4,10 @@
 - **version 2.0 ✅**
 
 # ScreenShot📷:
-![image](https://github.com/user-attachments/assets/0c32d771-8745-420c-9cb1-b8b37b03e86e)
+![image](https://github.com/user-attachments/assets/75b1a17a-fb59-4243-8f9c-e3286b2e17dd)
+
+![image](https://github.com/user-attachments/assets/3287e466-0c76-49a9-9064-678175c4f4da)
+
 
 # Note 📒 
 ![image](https://github.com/user-attachments/assets/769c4d67-6a11-4d1b-845e-6d531fbb2e77)
