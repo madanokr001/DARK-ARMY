@@ -1,7 +1,6 @@
 # Author : cybermad
 
 import os
-import os
 import shutil
 from PIL import Image
 from io import BytesIO
