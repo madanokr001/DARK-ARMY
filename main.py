@@ -57,7 +57,7 @@ class DARK4RMY:
             org = data.get("org", "N/A")
             timezone = data.get("timezone", "N/A")
             
-            googlemaps = f"https://www.google.com/maps/search/google+map+{city}+{country}"
+            googlemaps = f"https://www.google.com/maps/search/google+map++{loc}"
 
             return ip, city, region, country, loc, org, timezone, googlemaps
 
